@@ -1,0 +1,88 @@
+{
+  "CampusLF_Items": [
+    {
+      "PutRequest": {
+        "Item": {
+          "itemId": { "S": "item-101" },
+          "type": { "S": "LOST" },
+          "itemName": { "S": "Casio FX-991EX Scientific Calculator" },
+          "category": { "S": "calculator" },
+          "description": { "S": "Black scientific calculator left on desk in Room 204. Small blue sticker on back." },
+          "date": { "S": "2026-09-10" },
+          "location": { "S": "library" },
+          "color": { "S": "Black" },
+          "brand": { "S": "Casio" },
+          "identifyingFeatures": { "S": "Blue sticker on back" },
+          "status": { "S": "ACTIVE" },
+          "reporterName": { "S": "Rahul Sharma" },
+          "reporterContact": { "S": "rahul.s@campus.edu" },
+          "createdAt": { "S": "2026-09-10T10:30:00Z" },
+          "updatedAt": { "S": "2026-09-10T10:30:00Z" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "itemId": { "S": "item-102" },
+          "type": { "S": "FOUND" },
+          "itemName": { "S": "Student ID Card - CSE Department" },
+          "category": { "S": "id-card" },
+          "description": { "S": "Found student ID card near main entrance stairs. Name: Ananya Roy." },
+          "date": { "S": "2026-09-11" },
+          "location": { "S": "main-building" },
+          "color": { "S": "White/Blue" },
+          "brand": { "S": "University ID" },
+          "identifyingFeatures": { "S": "CSE Department batch 2024-2028" },
+          "status": { "S": "ACTIVE" },
+          "reporterName": { "S": "Priya Verma" },
+          "reporterContact": { "S": "priya.v@campus.edu" },
+          "createdAt": { "S": "2026-09-11T14:15:00Z" },
+          "updatedAt": { "S": "2026-09-11T14:15:00Z" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "itemId": { "S": "item-103" },
+          "type": { "S": "LOST" },
+          "itemName": { "S": "Navy Blue Jansport Backpack" },
+          "category": { "S": "bags" },
+          "description": { "S": "Contains notebook, water bottle, and charger. Left in cafeteria." },
+          "date": { "S": "2026-09-09" },
+          "location": { "S": "cafeteria" },
+          "color": { "S": "Navy Blue" },
+          "brand": { "S": "Jansport" },
+          "identifyingFeatures": { "S": "Silver key chain" },
+          "status": { "S": "ACTIVE" },
+          "reporterName": { "S": "Amit Patel" },
+          "reporterContact": { "S": "amit.p@campus.edu" },
+          "createdAt": { "S": "2026-09-09T13:00:00Z" },
+          "updatedAt": { "S": "2026-09-09T13:00:00Z" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "itemId": { "S": "item-104" },
+          "type": { "S": "FOUND" },
+          "itemName": { "S": "Apple AirPods Pro (2nd Gen)" },
+          "category": { "S": "electronics" },
+          "description": { "S": "Found on chair in Computer Lab 3." },
+          "date": { "S": "2026-09-12" },
+          "location": { "S": "computer-lab" },
+          "color": { "S": "White" },
+          "brand": { "S": "Apple" },
+          "identifyingFeatures": { "S": "Clear silicone case" },
+          "status": { "S": "ACTIVE" },
+          "reporterName": { "S": "Kavita Singh" },
+          "reporterContact": { "S": "kavita.s@campus.edu" },
+          "createdAt": { "S": "2026-09-12T09:45:00Z" },
+          "updatedAt": { "S": "2026-09-12T09:45:00Z" }
+        }
+      }
+    }
+  ]
+}

@@ -1,17 +1,23 @@
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Search, Filter, RefreshCw, AlertCircle, CheckCircle } from 'lucide-react';
 import ItemCard from '../components/items/ItemCard';
-import { getAllItems } from '../data/mockData';
+import { getAllItems, syncWithDynamoDB } from '../data/mockData';
 import { CATEGORIES, LOCATIONS } from '../data/constants';
 import EmptyState from '../components/common/EmptyState';
 
 export default function BrowsePage() {
-  const [items] = useState(() => getAllItems());
+  const [items, setItems] = useState(() => getAllItems());
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState('all');
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [locationFilter, setLocationFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
+
+  useEffect(() => {
+    syncWithDynamoDB().then(() => {
+      setItems(getAllItems());
+    });
+  }, []);
 
   const filteredItems = useMemo(() => {
     return items.filter((item) => {

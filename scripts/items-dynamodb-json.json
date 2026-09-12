@@ -1,0 +1,76 @@
+{
+  "CampusLF_Items": [
+    {
+      "PutRequest": {
+        "Item": {
+          "itemId": { "S": "item-101" },
+          "type": { "S": "LOST" },
+          "itemName": { "S": "Casio FX-991EX Scientific Calculator" },
+          "category": { "S": "calculator" },
+          "description": { "S": "Black scientific calculator left on desk in Room 204." },
+          "date": { "S": "2026-09-10" },
+          "location": { "S": "library" },
+          "color": { "S": "Black" },
+          "brand": { "S": "Casio" },
+          "status": { "S": "ACTIVE" },
+          "reporterName": { "S": "Rahul Sharma" },
+          "reporterContact": { "S": "rahul.s@campus.edu" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "itemId": { "S": "item-102" },
+          "type": { "S": "FOUND" },
+          "itemName": { "S": "Student ID Card - CSE Department" },
+          "category": { "S": "id-card" },
+          "description": { "S": "Found student ID card near main entrance stairs. Name: Ananya Roy." },
+          "date": { "S": "2026-09-11" },
+          "location": { "S": "main-building" },
+          "color": { "S": "White/Blue" },
+          "brand": { "S": "University ID" },
+          "status": { "S": "ACTIVE" },
+          "reporterName": { "S": "Priya Verma" },
+          "reporterContact": { "S": "priya.v@campus.edu" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "itemId": { "S": "item-103" },
+          "type": { "S": "LOST" },
+          "itemName": { "S": "Navy Blue Jansport Backpack" },
+          "category": { "S": "bags" },
+          "description": { "S": "Contains notebook, water bottle, and charger. Left in cafeteria." },
+          "date": { "S": "2026-09-09" },
+          "location": { "S": "cafeteria" },
+          "color": { "S": "Navy Blue" },
+          "brand": { "S": "Jansport" },
+          "status": { "S": "ACTIVE" },
+          "reporterName": { "S": "Amit Patel" },
+          "reporterContact": { "S": "amit.p@campus.edu" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "itemId": { "S": "item-104" },
+          "type": { "S": "FOUND" },
+          "itemName": { "S": "Apple AirPods Pro (2nd Gen)" },
+          "category": { "S": "electronics" },
+          "description": { "S": "Found on chair in Computer Lab 3." },
+          "date": { "S": "2026-09-12" },
+          "location": { "S": "computer-lab" },
+          "color": { "S": "White" },
+          "brand": { "S": "Apple" },
+          "status": { "S": "ACTIVE" },
+          "reporterName": { "S": "Kavita Singh" },
+          "reporterContact": { "S": "kavita.s@campus.edu" }
+        }
+      }
+    }
+  ]
+}

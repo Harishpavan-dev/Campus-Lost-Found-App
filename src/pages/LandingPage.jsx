@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Search,
@@ -20,12 +21,19 @@ import {
   ShoppingBag,
 } from 'lucide-react';
 import ItemCard from '../components/items/ItemCard';
-import { getRecentItems, getStats } from '../data/mockData';
+import { getRecentItems, getStats, syncWithDynamoDB } from '../data/mockData';
 
 export default function LandingPage() {
-  const stats = getStats();
-  const recentItems = getRecentItems(6);
+  const [items, setItems] = useState(() => getRecentItems(6));
+  const [stats, setStats] = useState(() => getStats());
   const navigate = useNavigate();
+
+  useEffect(() => {
+    syncWithDynamoDB().then(() => {
+      setItems(getRecentItems(6));
+      setStats(getStats());
+    });
+  }, []);
 
   const categoriesQuick = [
     { label: 'ID Cards', icon: CreditCard, val: 'id-card', color: 'hover:border-sky-400 hover:text-sky-600' },
@@ -227,7 +235,7 @@ export default function LandingPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {recentItems.map((item) => (
+            {items.map((item) => (
               <ItemCard key={item.itemId} item={item} />
             ))}
           </div>
