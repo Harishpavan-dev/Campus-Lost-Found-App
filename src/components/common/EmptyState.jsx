@@ -10,19 +10,19 @@ export default function EmptyState({
   actionOnClick,
 }) {
   return (
-    <div className="flex flex-col items-center justify-center py-16 px-4 text-center animate-fade-in">
-      <div className="w-20 h-20 rounded-3xl bg-surface-100 flex items-center justify-center mb-5">
-        <Icon size={36} className="text-surface-400" />
+    <div className="flex flex-col items-center justify-center py-24 px-6 text-center animate-fade-in">
+      <div className="w-24 h-24 rounded-[2rem] bg-gradient-to-br from-surface-100 to-surface-50 flex items-center justify-center mb-7 shadow-inner border border-surface-200/60">
+        <Icon size={42} className="text-surface-400" />
       </div>
-      <h3 className="text-lg font-semibold text-surface-800 mb-1.5">{title}</h3>
-      <p className="text-sm text-surface-500 max-w-md mb-6">{description}</p>
+      <h3 className="text-xl font-bold text-surface-800 mb-2.5">{title}</h3>
+      <p className="text-sm text-surface-500 max-w-md mb-8 leading-relaxed">{description}</p>
       {actionLabel && (
         actionTo ? (
-          <Link to={actionTo} className="btn btn-primary">
+          <Link to={actionTo} className="btn btn-primary btn-lg">
             {actionLabel}
           </Link>
         ) : actionOnClick ? (
-          <button onClick={actionOnClick} className="btn btn-primary">
+          <button onClick={actionOnClick} className="btn btn-primary btn-lg">
             {actionLabel}
           </button>
         ) : null

@@ -1,121 +1,118 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Trash2, CheckCircle, Eye, AlertCircle, RefreshCw } from 'lucide-react';
-import { getAllItems, deleteItem, updateItem } from '../data/mockData';
+import { Eye, AlertCircle, CheckCircle, ArrowRight } from 'lucide-react';
+import { getAllItems, syncWithDynamoDB } from '../data/mockData';
 import { formatDate, getTypeColor, getStatusColor } from '../utils/helpers';
 import { getCategoryLabel, getLocationLabel } from '../data/constants';
-import { useToast } from '../context/ToastContext';
 import EmptyState from '../components/common/EmptyState';
 
 export default function MyReportsPage() {
-  const { addToast } = useToast();
   const [items, setItems] = useState(() => getAllItems());
 
-  const handleMarkResolved = (id) => {
-    updateItem(id, { status: 'RESOLVED' });
-    setItems(getAllItems());
-    addToast('Report marked as RESOLVED!', 'success');
-  };
-
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this report?')) {
-      deleteItem(id);
+  useEffect(() => {
+    syncWithDynamoDB().then(() => {
       setItems(getAllItems());
-      addToast('Report deleted successfully.', 'info');
-    }
-  };
+    });
+  }, []);
+
+  const activeCount = items.filter(i => i.status === 'ACTIVE').length;
+  const resolvedCount = items.filter(i => i.status === 'RESOLVED').length;
 
   return (
-    <div className="py-8 animate-fade-in">
-      <div className="container max-w-4xl mx-auto space-y-6">
-        {/* Title */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-bold text-surface-900">My Reports</h1>
-            <p className="text-surface-500 text-sm mt-1">Manage and update your reported campus items</p>
+    <div className="animate-fade-in">
+      {/* Header Banner */}
+      <div className="bg-gradient-to-br from-slate-800 via-slate-900 to-indigo-950 text-white">
+        <div className="container py-12 sm:py-16 lg:py-20">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight">Manage Campus Reports</h1>
+              <p className="text-slate-300 text-sm sm:text-base mt-2">View all lost & found item reports posted across campus</p>
+            </div>
+
+            <div className="flex gap-3">
+              <Link to="/report/lost" className="btn btn-danger font-bold shadow-lg">
+                <AlertCircle size={16} /> Report Lost
+              </Link>
+              <Link to="/report/found" className="btn btn-success font-bold shadow-lg">
+                <CheckCircle size={16} /> Report Found
+              </Link>
+            </div>
           </div>
 
-          <div className="flex gap-2">
-            <Link to="/report/lost" className="btn btn-danger btn-sm font-semibold">
-              + Report Lost
-            </Link>
-            <Link to="/report/found" className="btn btn-success btn-sm font-semibold">
-              + Report Found
-            </Link>
+          {/* Mini Stats */}
+          <div className="grid grid-cols-3 gap-4 mt-8 max-w-md">
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10 text-center">
+              <div className="text-2xl font-black">{items.length}</div>
+              <div className="text-xs text-slate-300 font-medium mt-0.5">Total</div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10 text-center">
+              <div className="text-2xl font-black text-emerald-400">{activeCount}</div>
+              <div className="text-xs text-slate-300 font-medium mt-0.5">Active</div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10 text-center">
+              <div className="text-2xl font-black text-indigo-400">{resolvedCount}</div>
+              <div className="text-xs text-slate-300 font-medium mt-0.5">Resolved</div>
+            </div>
           </div>
         </div>
+      </div>
 
+      <div className="container py-10 sm:py-14 max-w-4xl mx-auto">
         {/* List of Reports */}
         {items.length === 0 ? (
           <EmptyState
-            title="No reports created yet"
-            description="You have not created any lost or found item reports."
+            title="No reports posted yet"
+            description="No lost or found items have been reported yet across campus."
             actionLabel="Report an Item Now"
-            onAction={() => window.location.href = '/report/lost'}
+            actionOnClick={() => window.location.href = '/report/lost'}
           />
         ) : (
-          <div className="space-y-4">
-            {items.map((item) => (
+          <div className="space-y-5">
+            {items.map((item, index) => (
               <div
                 key={item.itemId}
-                className="bg-white rounded-2xl border border-surface-200/80 p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4 card-hover"
+                className="bg-white rounded-3xl border border-surface-200/80 p-6 sm:p-8 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-5 card-hover animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.05}s` }}
               >
-                <div className="space-y-2 flex-1">
-                  <div className="flex items-center gap-2">
+                <div className="space-y-3 flex-1">
+                  <div className="flex items-center gap-2 flex-wrap">
                     <span className={`badge ${getTypeColor(item.type)} font-bold text-xs`}>
                       {item.type}
                     </span>
                     <span className={`badge ${getStatusColor(item.status)} font-semibold text-xs`}>
                       {item.status}
                     </span>
-                    <span className="text-xs text-surface-400">
+                    <span className="text-xs text-surface-400 ml-1">
                       • {formatDate(item.date)}
                     </span>
                   </div>
 
-                  <h3 className="font-bold text-surface-900 text-lg">
+                  <h3 className="font-bold text-surface-900 text-lg sm:text-xl">
                     {item.itemName}
                   </h3>
 
-                  <p className="text-xs text-surface-500 line-clamp-1">
+                  <p className="text-sm text-surface-500 line-clamp-2 leading-relaxed">
                     {item.description}
                   </p>
 
-                  <div className="text-xs text-surface-600 flex flex-wrap gap-4 pt-1">
+                  <div className="text-xs text-surface-600 flex flex-wrap gap-5 pt-1">
                     <span><strong>Category:</strong> {getCategoryLabel(item.category)}</span>
                     <span><strong>Location:</strong> {getLocationLabel(item.location)}</span>
+                    <span><strong>Reporter:</strong> {item.reporterName}</span>
                   </div>
                 </div>
 
-                {/* Actions */}
-                <div className="flex items-center gap-2 shrink-0 pt-2 sm:pt-0 border-t sm:border-0 border-surface-100">
+                {/* Actions - View Button ONLY */}
+                <div className="flex items-center shrink-0 pt-4 sm:pt-0 border-t sm:border-0 border-surface-100">
                   <Link
                     to={`/item/${item.itemId}`}
-                    className="btn btn-ghost btn-sm text-surface-700 hover:bg-surface-100"
-                    title="View Details"
+                    className="btn btn-primary btn-sm font-bold shadow-xs flex items-center gap-1.5"
+                    title="View Item Details"
                   >
                     <Eye size={16} />
-                    View
+                    View Details
+                    <ArrowRight size={14} />
                   </Link>
-
-                  {item.status === 'ACTIVE' && (
-                    <button
-                      onClick={() => handleMarkResolved(item.itemId)}
-                      className="btn btn-secondary btn-sm text-emerald-700 hover:bg-emerald-50 border-emerald-200"
-                      title="Mark as Resolved"
-                    >
-                      <CheckCircle size={16} className="text-emerald-600" />
-                      Resolve
-                    </button>
-                  )}
-
-                  <button
-                    onClick={() => handleDelete(item.itemId)}
-                    className="btn btn-ghost btn-sm text-red-600 hover:bg-red-50"
-                    title="Delete Report"
-                  >
-                    <Trash2 size={16} />
-                  </button>
                 </div>
               </div>
             ))}

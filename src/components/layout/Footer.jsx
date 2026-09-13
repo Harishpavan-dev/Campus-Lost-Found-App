@@ -12,7 +12,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4 group">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-400 flex items-center justify-center group-hover:scale-105 transition-transform">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center group-hover:scale-105 transition-transform">
                 <MapPin size={20} className="text-white" />
               </div>
               <div className="flex flex-col leading-none">
@@ -21,7 +21,7 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-sm text-surface-400 leading-relaxed mb-4">
-              A centralized platform for college students to report, search, and recover lost & found items on campus.
+              A centralized, open platform for college students to report, search, and recover lost & found items on campus without any hassle.
             </p>
           </div>
 
@@ -30,10 +30,10 @@ export default function Footer() {
             <h4 className="text-white font-semibold text-sm mb-4 uppercase tracking-wider">Quick Links</h4>
             <ul className="space-y-2.5">
               {[
-                { to: '/browse', label: 'Browse Items' },
+                { to: '/browse', label: 'Browse Marketplace' },
                 { to: '/report/lost', label: 'Report Lost Item' },
                 { to: '/report/found', label: 'Report Found Item' },
-                { to: '/dashboard', label: 'Dashboard' },
+                { to: '/my-reports', label: 'Manage Reports' },
               ].map(link => (
                 <li key={link.to}>
                   <Link
@@ -53,9 +53,9 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {[
                 { to: '/#how-it-works', label: 'How It Works' },
-                { to: '/#about', label: 'About' },
-                { to: '/#contact', label: 'Contact' },
-                { label: 'Privacy Policy' },
+                { to: '/#about', label: 'About Campus L&F' },
+                { to: '/#contact', label: 'Contact Support' },
+                { label: 'Campus Privacy Policy' },
               ].map((link, i) => (
                 <li key={i}>
                   {link.to ? (
@@ -75,7 +75,7 @@ export default function Footer() {
             <h4 className="text-white font-semibold text-sm mb-4 uppercase tracking-wider">Connect</h4>
             <div className="space-y-3">
               <a
-                href="https://github.com"
+                href="https://github.com/Harishpavan-dev/Campus-Lost-Found-App"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm text-surface-400 hover:text-white transition-colors"
@@ -91,15 +91,6 @@ export default function Footer() {
                 <Mail size={16} />
                 support@campuslf.edu
               </a>
-            </div>
-
-            {/* Demo Credentials */}
-            <div className="mt-6 p-3 rounded-lg bg-surface-800/50 border border-surface-700/50">
-              <p className="text-xs font-semibold text-surface-400 uppercase tracking-wider mb-2">Demo Credentials</p>
-              <div className="space-y-1 text-xs text-surface-500">
-                <p><span className="text-surface-400">Student:</span> student@campus.edu / student123</p>
-                <p><span className="text-surface-400">Admin:</span> admin@campus.edu / admin123</p>
-              </div>
             </div>
           </div>
         </div>
