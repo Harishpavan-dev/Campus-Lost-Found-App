@@ -5,10 +5,22 @@
 
 import { DynamoDBClient, BatchWriteItemCommand } from '@aws-sdk/client-dynamodb';
 
-const REGION = process.env.VITE_AWS_REGION || 'ap-south-1';
+const REGION = process.env.VITE_AWS_REGION || process.env.AWS_REGION || 'ap-south-1';
 const TABLE_NAME = process.env.VITE_AWS_DYNAMODB_TABLE_ITEMS || 'CampusLF_Items';
+const ACCESS_KEY_ID = process.env.VITE_AWS_ACCESS_KEY_ID || process.env.AWS_ACCESS_KEY_ID;
+const SECRET_ACCESS_KEY = process.env.VITE_AWS_SECRET_ACCESS_KEY || process.env.AWS_SECRET_ACCESS_KEY;
 
-const client = new DynamoDBClient({ region: REGION });
+const client = new DynamoDBClient({
+  region: REGION,
+  ...(ACCESS_KEY_ID && SECRET_ACCESS_KEY
+    ? {
+        credentials: {
+          accessKeyId: ACCESS_KEY_ID,
+          secretAccessKey: SECRET_ACCESS_KEY,
+        },
+      }
+    : {}),
+});
 
 const SAMPLE_ITEMS = [
   {

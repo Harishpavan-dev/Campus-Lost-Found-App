@@ -14,10 +14,20 @@ import {
 
 const REGION = import.meta.env.VITE_AWS_REGION || 'ap-south-1';
 const TABLE_NAME = import.meta.env.VITE_AWS_DYNAMODB_TABLE_ITEMS || 'CampusLF_Items';
+const ACCESS_KEY_ID = import.meta.env.VITE_AWS_ACCESS_KEY_ID || '';
+const SECRET_ACCESS_KEY = import.meta.env.VITE_AWS_SECRET_ACCESS_KEY || '';
 
-// Initialize AWS DynamoDB Client
+// Initialize AWS DynamoDB Client with credentials if available
 const client = new DynamoDBClient({
   region: REGION,
+  ...(ACCESS_KEY_ID && SECRET_ACCESS_KEY
+    ? {
+        credentials: {
+          accessKeyId: ACCESS_KEY_ID,
+          secretAccessKey: SECRET_ACCESS_KEY,
+        },
+      }
+    : {}),
 });
 
 /**
